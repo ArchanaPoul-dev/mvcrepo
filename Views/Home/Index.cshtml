@@ -1,0 +1,57 @@
+﻿@model LogInApp.Models.LogIn
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+</head>
+<body>
+    <div>
+        <h2>Welcome to Log-In Application....</h2>
+        <form method="post" action="/">
+            @*<p>
+            <label>
+                Name :
+                <input type="text" name="UserName" />
+            </label>
+        </p>
+        <p>
+        <label>
+            Password :
+            <input type="text" name="Password" />
+        </label>
+        </p>*@
+
+            <p>
+                <label>
+                    Name :
+                    @Html.TextBoxFor(e => e.UserName)
+                </label>
+
+            </p>
+            <label style="color:red">@Html.ValidationMessageFor(e => e.UserName)</label>
+            <p>
+            <p>
+                <label>
+                    Password :
+                    @Html.TextBoxFor(e => e.Password)
+                </label>
+
+            </p>
+            <label style="color:red">@Html.ValidationMessageFor(e => e.Password)</label>
+            <p>
+                <button>Submit</button>
+                </p>
+            <p>
+                <label style="color:red">@Html.ValidationMessage("InvalidLogin")</label>
+            </p>
+        </form>
+    </div>
+
+</body>
+
+</html>

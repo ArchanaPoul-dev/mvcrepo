@@ -1,18 +1,24 @@
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
   <mat-card fxFlex=75>
     <mat-toolbar color="primary">
-      Registration
+      <span>Registration</span>
     </mat-toolbar>
     <form (ngSubmit)="onRegistration()" name="registrationform" [formGroup]="registrationform" fxLayoutAlign="stretch"
       fxLayout="column" class="registration-form">
-
       
+      <h4 class="card-title" style=" height: 10% ;color: red;" >* All fields are mandatory</h4>
+      <div class="card" style="width: 100%;">       
+        <div class="card-body">
+          <div class="card-header">
+          <h3 class="card-title" >Basic Details</h3>
+        </div>
       <div class="row">
         <div class="col-md-4">
           <mat-form-field>
             <input formControlName="name" matInput placeholder="Name">
             <mat-hint
-              *ngIf="registrationform.controls.name.errors && (registrationform.controls.name.touched       ||registrationform.controls.name.dirty)">
+              *ngIf="registrationform.controls.name.errors && (registrationform.controls.name.touched  
+                   ||registrationform.controls.name.dirty)">
               Enter valid Name</mat-hint>
           </mat-form-field>
 
@@ -21,7 +27,8 @@
           <mat-form-field>
             <input formControlName="username" matInput placeholder="UserName">
             <mat-hint
-              *ngIf="registrationform.controls.username.errors && (registrationform.controls.username.touched    ||registrationform.controls.username.dirty  )">
+              *ngIf="registrationform.controls.username.errors && (registrationform.controls.username.touched 
+                ||registrationform.controls.username.dirty  )">
               Enter Valid UserName</mat-hint>
           </mat-form-field>
         </div>
@@ -43,6 +50,9 @@
               <option value="Father">Father</option>
               <option value="Mother">Mother</option>
             </select>
+            <mat-hint *ngIf="registrationform.controls.gaurdiantype.errors && (registrationform.controls.gaurdiantype.touched
+            ||registrationform.controls.gaurdiantype.dirty  )">Select Gaurdian Type</mat-hint>
+            
           </mat-form-field>
 
         </div>
@@ -60,6 +70,16 @@
           </mat-form-field>
         </div>
       </div>
+    </div>
+  </div>
+  <br>
+  <div class="card" style="width: 100%;">       
+    <div class="card-body">
+      <div class="card-header">
+        <h3 class="card-title">Account Details</h3>
+      </div>
+<br>
+     
       <div class="row">
         <div class="col-md-4">
           <mat-form-field>
@@ -71,12 +91,14 @@
 
           <mat-form-field appearance="fill">
             <mat-label>Country</mat-label>
-            <mat-select formControlName="country">
+            <mat-select formControlName="country" (selectionChange)="onSelect($event)">
               <mat-option *ngFor="let country of countries" [value]="country">
                 {{country.Name}}
               </mat-option>
             </mat-select>
-
+            <mat-hint *ngIf="registrationform.controls.country.errors && (registrationform.controls.country.touched
+            ||registrationform.controls.country.dirty  )">Select Country</mat-hint>
+            
           </mat-form-field>
 
         </div>
@@ -88,6 +110,9 @@
                 {{state.Name}}
               </mat-option>
             </mat-select>
+            <mat-hint *ngIf="registrationform.controls.state.errors && (registrationform.controls.state.touched
+            ||registrationform.controls.state.dirty  )">Select Country</mat-hint>
+            
           </mat-form-field>
 
         </div>
@@ -100,9 +125,8 @@
 
         </div>
         <div class="col-md-4">
-          <mat-label>Gender</mat-label>
-          <mat-radio-group formControlName="gender" aria-label="Select an option">
-            <mat-radio-button checked=true value="1">Male</mat-radio-button>
+        <mat-radio-group formControlName="gender" aria-label="Select an option">
+            <mat-radio-button checked="true" value="1">Male</mat-radio-button>
             <mat-radio-button value="2">Female</mat-radio-button>
           </mat-radio-group>
 
@@ -115,14 +139,28 @@
               <option value="NM">Not-Married</option>
               <option value="D">Divorecee</option>
             </select>
+            <mat-hint *ngIf="registrationform.controls.maritalstatus.errors && (registrationform.controls.maritalstatus.touched
+            ||registrationform.controls.maritalstatus.dirty  )">Select Marital status</mat-hint>
+            
           </mat-form-field>
         </div>
       </div>
+</div>
+</div>
 
+<div class="card" style="width: 100%;">       
+  <div class="card-body">
+
+    <div class="card-header">
+      <h3 class="card-title">Reference Details</h3>
+    </div>
+    <br>
+
+    
       <div class="row">
         <div class="col-md-4">
           <mat-form-field>
-            <input formControlName="contactno" type="number" matInput placeholder="Contact No">
+            <input formControlName="contactno" type="number" min="0" matInput placeholder="Contact No">
           </mat-form-field>
 
         </div>
@@ -151,40 +189,54 @@
         <div class="col-md-4">
           <mat-form-field appearance="fill">
             <mat-label>Account Type</mat-label>
-            <select matNativeControl required formControlName="accounttype">
+            <select matNativeControl required formControlName="accounttype" (change)="onaccTypeChange($event)" >              
               <option value="S">Saving</option>
-              <option value="C">Current</option>
+              <option value="SL">Salary</option>
 
-            </select>
+            </select>        
+            <mat-hint *ngIf="registrationform.controls.accounttype.errors && (registrationform.controls.accounttype.touched
+            ||registrationform.controls.accounttype.dirty  )">Select Account Type</mat-hint>
+            
           </mat-form-field>
 
+         
+
+          
         </div>
         <div class="col-md-4">
           <mat-form-field>
-            <input formControlName="initialdepositamt" type="number" matInput placeholder="Initial Deposit Amount">
+            <input formControlName="initialdepositamt" type="number" min="1" matInput placeholder="Initial Deposit Amount">
           </mat-form-field>
         </div>
         <div class="col-md-4">
 
+          <mat-form-field>
+            <input formControlName="citizenstatus" matInput placeholder="Citizen Status">
+          </mat-form-field>
         </div>
       </div>
-
-
       <div class="row">
         <div class="col-md-4">
           <mat-form-field appearance="fill">
             <mat-label>ID Proof Type</mat-label>
-            <select matNativeControl required formControlName="idprooftype">
+            <select matNativeControl required formControlName="idprooftype" (change)="onSelectIDprooftype($event)" >
               <option value="Adhar">Adhar</option>
               <option value="PAN">PAN</option>
 
             </select>
+            <mat-hint *ngIf="registrationform.controls.idprooftype.errors && (registrationform.controls.idprooftype.touched
+            ||registrationform.controls.idprooftype.dirty  )">Select ID Proof Type</mat-hint>
+            
           </mat-form-field>
 
         </div>
         <div class="col-md-4">
           <mat-form-field>
             <input formControlName="IDdocno" matInput placeholder="ID Document No">
+
+            <mat-hint *ngIf="registrationform.controls.IDdocno.errors && (registrationform.controls.IDdocno.touched
+            ||registrationform.controls.IDdocno.dirty  )">Enter valid ID doc no</mat-hint>
+
           </mat-form-field>
         </div>
         <div class="col-md-4">
@@ -217,8 +269,20 @@
         </div>
       </div>
 
-      <button mat-raised-button [disabled]="!registrationform.valid" type="submit" color="primary">Register</button>
 
+</div></div>
+<div class="row" >
+  <div class="col-md-4">
+    
+  </div>
+
+  <div class="col-md-4" >
+    <br>
+    <button mat-raised-button class="mr-4" [disabled]="!registrationform.valid" type="submit" color="primary">Register</button>
+    <button mat-raised-button color="primary" (click)="onReset()" >Reset</button>
+  </div>
+  <div class="col-md-4" ></div>
+</div> 
     </form>
 
   </mat-card>

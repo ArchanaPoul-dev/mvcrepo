@@ -8,25 +8,18 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
-
-  countries: Countries[] = [
-    {Id: '1', Name: 'India'},
-    {Id: '2', Name: 'UK'}
-  ];
-
-  states: States[] = [
-    {Id: '1', Name: 'Maharashtra',countryid:1},
-    {Id: '2', Name: 'Gujarat',countryid:1}
-  ];
+  private countriesUrl = 'assets/countriesList.json';
+  private statesUrl='assets/statesList.json';
   constructor(private http: HttpClient) { 
   }
 
   getall():any
-    {
-      return this.countries;
+    {    
+
+      return this.http.get<any>(this.countriesUrl);
     }
     getallStates():any
     {
-      return this.states;
+      return this.http.get<any>(this.statesUrl);
     }
 }

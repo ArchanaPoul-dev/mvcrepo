@@ -1,27 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable,  } from 'rxjs';
+import { Login } from './login';
+import { Registration } from './registration';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
- //isAuthenticated:Observable<boolean>;
-  user:any[];
-  private _registerUrl="";
-  
-  private _loginUrl="";
-
+ 
+  //reg:Registration;
+  private _registerUrl="https://localhost:44388/api/registration";  
+  private _loginUrl="https://localhost:44388/api/Login/GetAll";
   constructor(private _http:HttpClient) { }
 
-  // registerUser(user){
-  //   return this._http.post<any>(this._registerUrl,user)
-  // };
+  registerUser(reg: any):Observable<Registration>{
+    console.log(reg);
+    return this._http.post<Registration>(this._registerUrl,reg)
+  };
 
-  loginUser(user:any[]){
-    console.log("entered auth- loginUser ");
-  
-    return this._http.post<any>(this._loginUrl,user)
+  loginUser(user:any):Observable<Login>{
+    console.log("entered auth- loginUser ");  
+    return this._http.post<Login>(this._loginUrl,user)
     
   };
 

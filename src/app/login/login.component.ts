@@ -55,9 +55,13 @@ onLogin()
    this._auth.loginUser(this.loginform.value)
   .subscribe(
     res =>{  
-  localStorage.setItem('token',res.token)
+      if (res!=null)
+      {
+  localStorage.setItem('token','res.token')
+  //res.token
   this.router.navigate(['/loan'])
   console.log(res)
+}
   },
     err =>console.log(err)    
   )

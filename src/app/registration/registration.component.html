@@ -91,7 +91,7 @@
 
           <mat-form-field appearance="fill">
             <mat-label>Country</mat-label>
-            <mat-select formControlName="country" (selectionChange)="onSelect($event)">
+            <mat-select formControlName="country"  (selectionChange)="onSelect($event)">
               <mat-option *ngFor="let country of countries" [value]="country">
                 {{country.Name}}
               </mat-option>
@@ -160,7 +160,7 @@
       <div class="row">
         <div class="col-md-4">
           <mat-form-field>
-            <input formControlName="contactno" type="number" min="0" matInput placeholder="Contact No">
+            <input formControlName="contactno" type="number"  matInput placeholder="Contact No">
           </mat-form-field>
 
         </div>
@@ -179,7 +179,7 @@
         <div class="col-md-4">
           <mat-form-field appearance="fill">
             <mat-label>Registration Date</mat-label>
-            <input matInput [matDatepicker]="registrationdate" formControlName="registrationdate">
+            <input matInput [matDatepicker]="registrationdate" formControlName="RegDate">
             <mat-datepicker-toggle matSuffix [for]="registrationdate"></mat-datepicker-toggle>
             <mat-datepicker #registrationdate></mat-datepicker>
           </mat-form-field>
@@ -205,13 +205,13 @@
         </div>
         <div class="col-md-4">
           <mat-form-field>
-            <input formControlName="initialdepositamt" type="number" min="1" matInput placeholder="Initial Deposit Amount">
+            <input formControlName="InitialDepAmt" type="number" min="1" [readonly]="true" matInput placeholder="Initial Deposit Amount">
           </mat-form-field>
         </div>
         <div class="col-md-4">
 
           <mat-form-field>
-            <input formControlName="citizenstatus" matInput placeholder="Citizen Status">
+            <input formControlName="citizenstatus"[readonly]="true"  matInput placeholder="Citizen Status">
           </mat-form-field>
         </div>
       </div>
@@ -246,25 +246,25 @@
       <div class="row">
         <div class="col-md-4">
           <mat-form-field>
-            <input formControlName="refname" matInput placeholder="Ref Account Holder Name">
-            <mat-hint *ngIf="registrationform.controls.refname.errors && (registrationform.controls.refname.touched   
-      ||registrationform.controls.refname.dirty  )">Enter Valid Ref Name</mat-hint>
+            <input formControlName="RefAccholderName" matInput placeholder="Ref Account Holder Name">
+            <mat-hint *ngIf="registrationform.controls.RefAccholderName.errors && (registrationform.controls.RefAccholderName.touched   
+      ||registrationform.controls.RefAccholderName.dirty  )">Enter Valid Ref Name</mat-hint>
           </mat-form-field>
 
         </div>
         <div class="col-md-4">
 
           <mat-form-field>
-            <input formControlName="refaccno" matInput placeholder="Ref Account Holder acc no">
-            <mat-hint *ngIf="registrationform.controls.refaccno.errors && (registrationform.controls.refaccno.touched   
-         ||registrationform.controls.refaccno.dirty  )"></mat-hint>
+            <input formControlName="RefAccholderNo" matInput placeholder="Ref Account Holder acc no">
+            <mat-hint *ngIf="registrationform.controls.RefAccholderNo.errors && (registrationform.controls.RefAccholderNo.touched   
+         ||registrationform.controls.RefAccholderNo.dirty  )"></mat-hint>
           </mat-form-field>
         </div>
         <div class="col-md-4">
           <mat-form-field>
-            <textarea formControlName="refaddress" matInput placeholder="Ref Account Holder Address"></textarea>
-            <mat-hint *ngIf="registrationform.controls.refaddress.errors && (registrationform.controls.refaddress.touched   
-         ||registrationform.controls.refaddress.dirty  )"></mat-hint>
+            <textarea formControlName="RefAccholderAddress" matInput placeholder="Ref Account Holder Address"></textarea>
+            <mat-hint *ngIf="registrationform.controls.RefAccholderAddress.errors && (registrationform.controls.RefAccholderAddress.touched   
+         ||registrationform.controls.RefAccholderAddress.dirty  )"></mat-hint>
           </mat-form-field>
         </div>
       </div>

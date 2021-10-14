@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 import { Countries } from '../countries';
 
 import { DataService } from '../data.service';
@@ -19,7 +20,7 @@ export class RegistrationComponent implements OnInit {
   panelOpenState = false;
   selcountryid?: number;
 
-  constructor(private fb: FormBuilder, private dt: DataService,private router: Router) {
+  constructor(private fb: FormBuilder, private dt: DataService,private router: Router, private _auth:AuthService) {
 
   }
 
@@ -33,22 +34,23 @@ export class RegistrationComponent implements OnInit {
       gaurdianname: [null, [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z ]+[a-zA-Z]$")]],
       address: [null, [Validators.required, Validators.maxLength(50)]],
       citizenship: [null, Validators.required],
-      country: ['', Validators.required],
+      country: [null, Validators.required],
       state: [null, Validators.required],
       emailaddress: [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       maritalstatus: [null, Validators.required],
       contactno: [null, [Validators.required, Validators.minLength(10)]],
       dob: [null, [Validators.required, this.dateRangeValidator]],
-      registrationdate: [null, Validators.required],
+      RegDate: [null, Validators.required],
       accounttype: [null, Validators.required],
       citizenstatus: [{value:null,disabled:true}, Validators.required],
-      initialdepositamt: [{value:null,disabled:true}, Validators.required],
+      InitialDepAmt: [{value:null}, Validators.required],
       idprooftype: [null, Validators.required],
       IDdocno: [null, Validators.required],
-      refname: [null, [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z ]+[a-zA-Z]$")]],
-      refaccno: [null, Validators.required],
-      refaddress: [null, Validators.required]
+      RefAccholderName: [null, [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z ]+[a-zA-Z]$")]],
+      RefAccholderNo: [null, Validators.required],
+      RefAccholderAddress: [null, Validators.required]
     })
+   
     console.log(this.registrationform);
     this.fillDropdowns();
   }
@@ -71,6 +73,7 @@ export class RegistrationComponent implements OnInit {
     console.log("dateRangeValidator");
     let invalid = false;
     const dob = this.registrationform && this.registrationform.get("dob")?.value;  
+   
     invalid = ((new Date(dob).valueOf() > new Date('2003/01/01').valueOf()) || (new Date(dob).valueOf() < new Date('1935/01/01').valueOf()));
    
 
@@ -103,8 +106,7 @@ export class RegistrationComponent implements OnInit {
       this.registrationform.patchValue({
         citizenstatus: null               
       });
-    }
-
+    } 
     }
     
     return invalid ? { invalidRange: { dob } } : null;
@@ -113,15 +115,17 @@ export class RegistrationComponent implements OnInit {
   onRegistration() {
     console.log("Entered onRegistration");
     console.log(this.registrationform.value);
-    // this._auth.RegisterUser(this.registrationform.value)
-    // .subscribe(
-    //   res =>
-  //  { localStorage.setItem('token',res.token)
-  // this.router.navigate(['/login'])
-  // console.log(res)
-  // },
-    //   err =>console.log(err)
-    // )
+    this._auth.registerUser(this.registrationform.value)
+    .subscribe(
+      res =>
+   { 
+     localStorage.setItem('token','res.token')
+     //res.token
+  this.router.navigate(['/login'])
+  console.log(res)
+  },
+      err =>console.log(err)
+    )
 
   }
 
@@ -149,9 +153,6 @@ export class RegistrationComponent implements OnInit {
     let cntry = this.registrationform.controls['country'].value;
     console.log(cntry);
     const countryId = cntry?.Id;
-
-    console.log(countryId);
-
     this.dt.getallStates().subscribe(
       (data: any) => {
         console.log(data),
@@ -168,13 +169,13 @@ export class RegistrationComponent implements OnInit {
 
     if (_accounttype == 'S') {
       this.registrationform.patchValue({
-        initialdepositamt: initialdeposit.Saving         
+        InitialDepAmt: initialdeposit.Saving         
       });
     }
     else
     {
       this.registrationform.patchValue({
-        initialdepositamt: initialdeposit.Salary       
+        InitialDepAmt: initialdeposit.Salary       
       });
 
     }

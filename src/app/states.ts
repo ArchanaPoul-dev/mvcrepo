@@ -1,5 +1,5 @@
 export interface States {
-    Id: string;
+    Id: number;
     Name: string;
     countryid:number;
 }

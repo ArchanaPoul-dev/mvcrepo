@@ -1,6 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, ValidatorFn } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 import { DataService } from '../data.service';
 import { roival } from '../enum';
@@ -16,7 +18,7 @@ export class LoanapplicationComponent implements OnInit {
   myDate = new Date();
  
  
-  constructor(private fb: FormBuilder, private dt: DataService) {
+  constructor(private fb: FormBuilder, private router: Router, private dt: DataService,private _auth: AuthService) {
     
   }
 
@@ -44,8 +46,17 @@ export class LoanapplicationComponent implements OnInit {
     })
     console.log(this.loanform);
   }
-  onloansubmit() {
-    console.log(this.loanform);
+  onloansubmit() {   
+      console.log("Entered onloansubmit");
+      console.log(this.loanform.value);
+      this._auth.ApplyLoan(this.loanform.value)
+        .subscribe(
+          res => {           
+            //this.router.navigate(['/login'])
+            console.log(res)
+          },
+          err => { console.log(err) }
+        )
   }
   private dateRangeValidator: ValidatorFn = (): {
     [key: string]: any;

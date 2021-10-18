@@ -24,6 +24,7 @@ import { LoanapplicationComponent } from './loanapplication/loanapplication.comp
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
+import { ToasterService } from './toaster.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,7 @@ import { AuthGuard } from './auth.guard';
     MatExpansionModule   
     
   ],
-  providers: [AuthService,AuthGuard],
+  providers: [AuthService,AuthGuard,ToasterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -20,7 +20,8 @@ export class RegistrationComponent implements OnInit {
   panelOpenState = false;
   selcountryid?: number;
 
-  constructor(private fb: FormBuilder, private dt: DataService,private router: Router, private _auth:AuthService) {
+  constructor(private fb: FormBuilder, private dt: DataService, private router: Router,
+     private _auth: AuthService) {
 
   }
 
@@ -42,15 +43,15 @@ export class RegistrationComponent implements OnInit {
       dob: [null, [Validators.required, this.dateRangeValidator]],
       RegDate: [null, Validators.required],
       accounttype: [null, Validators.required],
-      citizenstatus: [{value:null,disabled:true}, Validators.required],
-      InitialDepAmt: [{value:null}, Validators.required],
+      citizenstatus: [{ value: null }, Validators.required],
+      InitialDepAmt: [{ value: null }, Validators.required],
       idprooftype: [null, Validators.required],
       IDdocno: [null, Validators.required],
       RefAccholderName: [null, [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z ]+[a-zA-Z]$")]],
       RefAccholderNo: [null, Validators.required],
       RefAccholderAddress: [null, Validators.required]
     })
-   
+
     console.log(this.registrationform);
     this.fillDropdowns();
   }
@@ -72,91 +73,84 @@ export class RegistrationComponent implements OnInit {
   } | null => {
     console.log("dateRangeValidator");
     let invalid = false;
-    const dob = this.registrationform && this.registrationform.get("dob")?.value;  
-   
-    invalid = ((new Date(dob).valueOf() > new Date('2003/01/01').valueOf()) || (new Date(dob).valueOf() < new Date('1935/01/01').valueOf()));
-   
+    const dob = this.registrationform && this.registrationform.get("dob")?.value;
 
-    if ( this.registrationform && !invalid)
-    {      
-      const bdate = new Date(dob);     
-      const timeDiff = Math.abs(Date.now() - bdate.getTime() );     
+    invalid = ((new Date(dob).valueOf() > new Date('2003/01/01').valueOf()) || (new Date(dob).valueOf() < new Date('1935/01/01').valueOf()));
+
+
+    if (this.registrationform && !invalid) {
+      const bdate = new Date(dob);
+      const timeDiff = Math.abs(Date.now() - bdate.getTime());
       const _age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
       console.log(_age);
-      if (_age<age.Minorage)
-      {
-      this.registrationform.patchValue({
-        citizenstatus: 'Minor'               
-      });
-    }else if (_age>=age.Minorage && _age<=age.Normalage)
-    {
-      this.registrationform.patchValue({
-        citizenstatus: 'Normal'               
-      });
-    }
-    else  if (_age>age.Normalage)
-    {
-      this.registrationform.patchValue({
-        citizenstatus: 'Senior'               
-      });
+      if (_age < age.Minorage) {
+        this.registrationform.patchValue({
+          citizenstatus: 'Minor'
+        });
+      } else if (_age >= age.Minorage && _age <= age.Normalage) {
+        this.registrationform.patchValue({
+          citizenstatus: 'Normal'
+        });
+      }
+      else if (_age > age.Normalage) {
+        this.registrationform.patchValue({
+          citizenstatus: 'Senior'
+        });
 
+      }
+      else {
+        this.registrationform.patchValue({
+          citizenstatus: null
+        });
+      }
     }
-    else
-    {
-      this.registrationform.patchValue({
-        citizenstatus: null               
-      });
-    } 
-    }
-    
+
     return invalid ? { invalidRange: { dob } } : null;
-  }; 
-  
+  };
+
   onRegistration() {
     console.log("Entered onRegistration");
     console.log(this.registrationform.value);
     this._auth.registerUser(this.registrationform.value)
-    .subscribe(
-      res =>
-   { 
-     localStorage.setItem('token','res.token')
-     //res.token
-  this.router.navigate(['/login'])
-  console.log(res)
-  },
-      err =>console.log(err)
-    )
+      .subscribe(
+        res => {
+          //localStorage.setItem('token', 'res.token')
+          //res.token
+          console.log(res)
+          this.router.navigate(['/login'])
+          
+        },
+        err => { console.log(err) }
+      )
 
   }
 
   onSelectIDprooftype(e: any) {
     console.log("Entered onSelectIDprooftype");
-    let _idprooftype = this.registrationform.controls['idprooftype'].value;    
+    let _idprooftype = this.registrationform.controls['idprooftype'].value;
     const _IDdocno = this.registrationform && this.registrationform.get("IDdocno")?.value;
-    console.log(_idprooftype);      
-    
-    if (_idprooftype == 'PAN')
-    {
-      this.registrationform.controls["IDdocno"].clearValidators();          
-      this.registrationform.controls["IDdocno"].setValidators([Validators.required,Validators.pattern("[A-Z]{5}[0-9]{4}[A-Z]{1}")]);    
-      
-    }else
-    {
+    console.log(_idprooftype);
+
+    if (_idprooftype == 'PAN') {
       this.registrationform.controls["IDdocno"].clearValidators();
-      this.registrationform.controls["IDdocno"].setValidators([Validators.required]);    
+      this.registrationform.controls["IDdocno"].setValidators([Validators.required, Validators.pattern("[A-Z]{5}[0-9]{4}[A-Z]{1}")]);
+
+    } else {
+      this.registrationform.controls["IDdocno"].clearValidators();
+      this.registrationform.controls["IDdocno"].setValidators([Validators.required]);
     }
-   
+
   }
 
   onSelect(e: any) {
     console.log("Entered onselect");
     let cntry = this.registrationform.controls['country'].value;
-    console.log(cntry);
-    const countryId = cntry?.Id;
+    // console.log(cntry);
+    // const countryId = cntry?.Id;
     this.dt.getallStates().subscribe(
       (data: any) => {
         console.log(data),
-          this.states = data.filter((x: any) => x.countryid == countryId),
+          this.states = data.filter((x: any) => x.countryid == cntry),
           console.log(this.states)
       })
 
@@ -169,23 +163,22 @@ export class RegistrationComponent implements OnInit {
 
     if (_accounttype == 'S') {
       this.registrationform.patchValue({
-        InitialDepAmt: initialdeposit.Saving         
+        InitialDepAmt: initialdeposit.Saving
       });
     }
-    else
-    {
+    else {
       this.registrationform.patchValue({
-        InitialDepAmt: initialdeposit.Salary       
+        InitialDepAmt: initialdeposit.Salary
       });
 
     }
   }
 
-  onReset(){
+  onReset() {
     // this.registrationform.markAsPristine();
-     this.registrationform.reset();
+    this.registrationform.reset();
 
   }
-  
+
 
 }

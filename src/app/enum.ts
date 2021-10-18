@@ -10,3 +10,5 @@ export enum initialdeposit {
 export enum age {
     Minorage=18,Normalage=60
 }
+
+

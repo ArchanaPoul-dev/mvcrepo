@@ -92,7 +92,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Country</mat-label>
             <mat-select formControlName="country"  (selectionChange)="onSelect($event)">
-              <mat-option *ngFor="let country of countries" [value]="country">
+              <mat-option *ngFor="let country of countries" [value]="country.Id">
                 {{country.Name}}
               </mat-option>
             </mat-select>
@@ -106,7 +106,7 @@
           <mat-form-field appearance="fill">
             <mat-label>State</mat-label>
             <mat-select formControlName="state">
-              <mat-option *ngFor="let state of states" [value]="state">
+              <mat-option *ngFor="let state of states" [value]="state.Id">
                 {{state.Name}}
               </mat-option>
             </mat-select>

@@ -1,29 +1,39 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable,  } from 'rxjs';
+import { Loan } from './loan';
 import { Login } from './login';
 import { Registration } from './registration';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
- 
-  //reg:Registration;
+export class AuthService { 
   private _registerUrl="https://localhost:44388/api/registration";  
-  private _loginUrl="https://localhost:44388/api/Login/GetAll";
+  //private _AuthenticationUrl="https://localhost:44388/api/Login/GetbyUserName?username= ";
+  private _AuthenticationUrl="https://localhost:44388/api/Login/GetbyUserName";
+  private _loanUrl="https://localhost:44388/api/Loan/LoanApplication";
+ 
+
   constructor(private _http:HttpClient) { }
 
-  registerUser(reg: any):Observable<Registration>{
-    console.log(reg);
-    return this._http.post<Registration>(this._registerUrl,reg)
+  registerUser(_reg: any):Observable<Registration>{
+    console.log("entered auth- registerUser ");     
+    console.log(_reg);
+    return this._http.post<Registration>(this._registerUrl,_reg)
   };
 
-  loginUser(user:any):Observable<Login>{
-    console.log("entered auth- loginUser ");  
-    return this._http.post<Login>(this._loginUrl,user)
-    
+  AuthenticateUser(_user:Login):Observable<any>{
+    console.log("entered auth- AuthenticateUser ");      
+    //return this._http.get(this._AuthenticationUrl + _user.UserName + '&password='+ _user.Password);  
+    return this._http.post(this._AuthenticationUrl ,_user);
   };
+
+  ApplyLoan(_loan:Loan):Observable<any>{
+    console.log("entered auth- ApplyLoan ");      
+    return this._http.post(this._loanUrl,_loan);
+  };
+
 
   loggedIn()
   {

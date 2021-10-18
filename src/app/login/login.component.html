@@ -13,10 +13,10 @@
             <input matInput type="password" formControlName="password"placeholder="Password"   >
             <mat-hint *ngIf="loginform.controls.password.errors && (loginform.controls.password.touched ||loginform.controls.password.dirty  )"></mat-hint>
         </mat-form-field>
-            <button mat-raised-button type="submit" color="primary" [disabled]="!loginform.valid" >Login</button>
+            <button mat-raised-button type="submit" color="primary" [disabled]="!loginform.valid ||  isSubmitting" >Login</button>
           
         <br>
-        <label>Not having Account ? <a routerLink="./registration"> Register</a></label>
+        <label>Not having Account ? <a routerLink="/registration"> Register</a></label>
           
            
           </form>

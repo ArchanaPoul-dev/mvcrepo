@@ -11,8 +11,8 @@ export interface Registration {
     Citizenship: string;
     //    Country: Countries[];
     //    State: States[];
-    // Country: number;
-    // State: number;
+    Country: number;
+    State: number;
     EmailAddress: string;
     Gender: string;
     MaritalStatus: string;

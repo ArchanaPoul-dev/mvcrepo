@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from './auth.service';
 
@@ -9,7 +10,8 @@ import { AuthService } from './auth.service';
 })
 export class AppComponent implements OnInit { 
   title = 'bankmgmtsystem';
-  constructor(private _auth:AuthService){
+  uname:string;
+  constructor(private _auth:AuthService,private router: Router){
     
 console.log("entered constructor");
 
@@ -17,6 +19,21 @@ console.log("entered constructor");
 
   ngOnInit(){
 console.log("entered ngOnInit");
+this._auth.uname$.subscribe(
+  message=>{
+this.uname=message;
+  }
+);
+  }
+
+  onRedirect()
+  {
+    this.router.navigate(['/registration',this.uname])
+  }
+
+  unameHandler(uname: string) {
+   
+    console.log("unameHandler"+uname);
   }
 
   loggedIn()

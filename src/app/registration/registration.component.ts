@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, ValidatorFn } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { Countries } from '../countries';
 
 import { DataService } from '../data.service';
 import { age, initialdeposit } from '../enum';
+import { Registration } from '../registration';
 
 @Component({
   selector: 'app-registration',
@@ -21,7 +22,7 @@ export class RegistrationComponent implements OnInit {
   selcountryid?: number;
 
   constructor(private fb: FormBuilder, private dt: DataService, private router: Router,
-     private _auth: AuthService) {
+    private _auth: AuthService, private route: ActivatedRoute) {
 
   }
 
@@ -54,7 +55,22 @@ export class RegistrationComponent implements OnInit {
 
     console.log(this.registrationform);
     this.fillDropdowns();
+
+    this.route.paramMap.subscribe(params => {
+      const uname = +params.get('name');
+      if (uname) {
+        //this.editregister(uname);
+      }
+    });
+
   }
+
+  //   editregister(uname: string){
+  // this._auth.getregisterUser(uname).subscribe(
+  //   (Registration:Registration)=>this.editRegisterUser(Registration),
+  //   ()
+  // )
+  //   }
 
   fillDropdowns() {
 
@@ -118,12 +134,14 @@ export class RegistrationComponent implements OnInit {
           //res.token
           console.log(res)
           this.router.navigate(['/login'])
-          
+
         },
         err => { console.log(err) }
       )
 
   }
+
+
 
   onSelectIDprooftype(e: any) {
     console.log("Entered onSelectIDprooftype");

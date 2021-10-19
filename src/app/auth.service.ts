@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable,  } from 'rxjs';
+import { Observable, Subject,  } from 'rxjs';
 import { Loan } from './loan';
 import { Login } from './login';
 import { Registration } from './registration';
@@ -13,7 +13,8 @@ export class AuthService {
   //private _AuthenticationUrl="https://localhost:44388/api/Login/GetbyUserName?username= ";
   private _AuthenticationUrl="https://localhost:44388/api/Login/GetbyUserName";
   private _loanUrl="https://localhost:44388/api/Loan/LoanApplication";
- 
+ private uname=new Subject<string>();
+ uname$=this.uname.asObservable();
 
   constructor(private _http:HttpClient) { }
 
@@ -22,6 +23,10 @@ export class AuthService {
     console.log(_reg);
     return this._http.post<Registration>(this._registerUrl,_reg)
   };
+
+  sendmessage(message:string){
+    this.uname.next(message);
+  }
 
   AuthenticateUser(_user:Login):Observable<any>{
     console.log("entered auth- AuthenticateUser ");      
@@ -34,6 +39,7 @@ export class AuthService {
     return this._http.post(this._loanUrl,_loan);
   };
 
+ 
 
   loggedIn()
   {

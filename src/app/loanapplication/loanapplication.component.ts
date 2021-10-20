@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, ValidatorFn } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../auth.service';
 
 import { DataService } from '../data.service';
@@ -16,15 +17,30 @@ export class LoanapplicationComponent implements OnInit {
   showeduloandetails = false;
   showhomeloandetails = false;
   myDate = new Date();
+ RegId:string;
  
- 
-  constructor(private fb: FormBuilder, private router: Router, private dt: DataService,private _auth: AuthService) {
+  constructor(private fb: FormBuilder, private router: Router, 
+    private dt: DataService,private _auth: AuthService,private _toastr: ToastrService,
+    private route: ActivatedRoute,) {
     
   }
+
+  Success() {
+    this._toastr.success('Loan Application submitted successfully');
+  }
+
+  error() {
+    this._toastr.error('Loan Application submission Failed ');
+  }
+  info() {
+    this._toastr.info('Information');
+  }
+
 
   ngOnInit(): void {
 
     this.loanform = this.fb.group({
+      RegId:[],
       loantype: [null, [Validators.required]],
       loanamt: [null, Validators.required],
       loanapplydate: [null, [Validators.required,this.dateRangeValidator]],
@@ -45,17 +61,30 @@ export class LoanapplicationComponent implements OnInit {
       expwithcurcmpny: [null]
     })
     console.log(this.loanform);
+    this.route.paramMap.subscribe(params => {
+      console.log("params Check"+  params.get('uname'));
+      if (params.get('uname')) {
+        this.RegId=(params.get('uname').toString());
+      }
+    });
+
   }
   onloansubmit() {   
       console.log("Entered onloansubmit");
+      this.loanform.patchValue({
+        RegId: this.RegId  
+      });
       console.log(this.loanform.value);
       this._auth.ApplyLoan(this.loanform.value)
         .subscribe(
-          res => {           
-            //this.router.navigate(['/login'])
+          res => {          
+            this.Success(); 
+            this.router.navigate(['/dashboard'])
             console.log(res)
           },
-          err => { console.log(err) }
+          err => { 
+            this.error();
+            console.log(err) }
         )
   }
   private dateRangeValidator: ValidatorFn = (): {
@@ -102,6 +131,12 @@ export class LoanapplicationComponent implements OnInit {
       });
 
     }
+
+  }
+
+  onReset() {
+    // this.registrationform.markAsPristine();
+    this.loanform.reset();
 
   }
 

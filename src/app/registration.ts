@@ -2,15 +2,14 @@ import { Countries } from "./countries";
 import { States } from "./states";
 
 export interface Registration {
+    Id:string;
     Name: string;
     UserName: string;
     Password: string;
     GaurdianType: string;
     GaurdianName: string;
     Address: string;
-    Citizenship: string;
-    //    Country: Countries[];
-    //    State: States[];
+    Citizenship: string;   
     Country: number;
     State: number;
     EmailAddress: string;

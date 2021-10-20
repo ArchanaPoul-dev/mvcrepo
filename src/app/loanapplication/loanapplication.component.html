@@ -17,17 +17,17 @@
             <div class="col-md-4">
               <mat-form-field appearance="fill">
                 <mat-label>Loan Type</mat-label>
-                <select matNativeControl required formControlName="loantype" (change)="onSelect($event)">
-                  <option value="E">Educational</option>
-                  <option value="P">Personal/Home</option>
-                </select>
+                <mat-select required formControlName="loantype" (selectionChange)="onSelect($event)">
+                  <mat-option value="E">Educational</mat-option>
+                  <mat-option value="P">Personal/Home</mat-option>
+                </mat-select>
                 <mat-hint *ngIf="loanform.controls.loantype.errors && (loanform.controls.loantype.touched
                     ||loanform.controls.loantype.dirty  )">Select Loan Type</mat-hint>
               </mat-form-field>
             </div>
             <div class="col-md-4">
               <mat-form-field>
-                <input formControlName="loanamt" type="number"  min="1"matInput placeholder="Loan Amount">
+                <input formControlName="loanamt" type="number" min="1" matInput placeholder="Loan Amount">
                 <mat-hint *ngIf="loanform.controls.loanamt.errors && (loanform.controls.loanamt.touched
                 ||loanform.controls.loanamt.dirty  )">Enter valid loan amt</mat-hint>
 
@@ -70,12 +70,12 @@
             <div class="col-md-4">
               <mat-form-field appearance="fill">
                 <mat-label>Duration</mat-label>
-                <select matNativeControl required formControlName="duration">
-                  <option value="5">5</option>
-                  <option value="10">10</option>
-                  <option value="15">15</option>
-                  <option value="20">20</option>
-                </select>
+                <mat-select required formControlName="duration">
+                  <mat-option value="5">5</mat-option>
+                  <mat-option value="10">10</mat-option>
+                  <mat-option value="15">15</mat-option>
+                  <mat-option value="20">20</mat-option>
+                </mat-select>
                 <mat-hint *ngIf="loanform.controls.duration.errors && (loanform.controls.duration.touched
                 ||loanform.controls.duration.dirty  )">Select Duration</mat-hint>
               </mat-form-field>
@@ -86,7 +86,7 @@
               <mat-form-field>
                 <input formControlName="coursefees" type="number" matInput placeholder="Course Fees">
                 <mat-hint *ngIf="loanform.controls.coursefees.errors && (loanform.controls.coursefees.touched
-                    ||loanform.controls.coursefees.dirty  )">Enter valid loan amt</mat-hint>
+                    ||loanform.controls.coursefees.dirty  )">Enter valid course fees</mat-hint>
               </mat-form-field>
             </div>
             <div class="col-md-4">
@@ -101,7 +101,7 @@
               <mat-form-field>
                 <input formControlName="fathername" matInput placeholder="Fathers Name">
                 <mat-hint *ngIf="loanform.controls.fathername.errors && (loanform.controls.fathername.touched
-                    ||loanform.controls.fathername.dirty  )">Enter valid loan amt</mat-hint>
+                    ||loanform.controls.fathername.dirty  )">Enter valid fathers name</mat-hint>
 
               </mat-form-field>
             </div>
@@ -118,7 +118,7 @@
               <mat-form-field>
                 <input formControlName="fexpcurrentcmpny" matInput placeholder="Fathers Exp-Current Company">
                 <mat-hint *ngIf="loanform.controls.fexpcurrentcmpny.errors && (loanform.controls.fexpcurrentcmpny.touched
-                    ||loanform.controls.fexpcurrentcmpny.dirty  )">Enter valid fathers exp</mat-hint>
+                    ||loanform.controls.fexpcurrentcmpny.dirty  )">Enter valid fathers exp-current company</mat-hint>
 
               </mat-form-field>
             </div>
@@ -174,7 +174,22 @@
           </div>
         </div>
       </div>
-      <button mat-raised-button [disabled]="!loanform.valid" type="submit" color="primary">Submit</button>
+
+      <div class="row">
+        <div class="col-md-4">
+
+        </div>
+
+        <div class="col-md-4">
+          <br>
+          <button mat-raised-button class="mr-4" [disabled]="!loanform.valid" type="submit"
+            color="primary">Submit</button>
+          <button mat-raised-button color="primary" (click)="onReset()">Reset</button>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+
+
     </form>
   </mat-card>
 </div>

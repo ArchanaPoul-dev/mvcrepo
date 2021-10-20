@@ -3,7 +3,8 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
-import { ToasterService } from '../toaster.service';
+import { ToastrService } from 'ngx-toastr';
+import { Registration } from '../registration';
 
 @Component({
   selector: 'app-login',
@@ -14,54 +15,59 @@ export class LoginComponent implements OnInit {
   loginform: FormGroup;
   submitted = false;
   isAuthenticated: Observable<boolean>;
-  isSubmitting = false;
-  @Output() uname: EventEmitter<string> = new EventEmitter();
+  isSubmitting = false;  
+  regi:Registration[];
 
   constructor(private fb: FormBuilder, private router: Router, private _auth: AuthService,
-    private _toastr: ToasterService) {
+    private _toastr: ToastrService) {
 
+    }
+  Success() {
+    this._toastr.success('User Logged In Successfully ');
   }
 
-  ngOnInit() {
+  error() {
+    this._toastr.error('User Logged In Failed ');
+  }
+  info() {
+    this._toastr.info('Information');
+  }
 
+  ngOnInit() {    
     this.loginform = this.fb.group({
       username: [null, Validators.required],
       password: [null, [Validators.required, Validators.minLength(6)]]
 
     })
-    console.log(this.loginform);
+    console.log(this.loginform);    
   }
 
-
-
   onLogin() {
+    console.log("Entered onLogin");
     this.isSubmitting = true;
     // stop here if form is invalid
     if (this.loginform.invalid) {
       return;
-    }
-    console.log("Entered onLogin");
+    }   
     console.log(this.loginform.value);
-
     this._auth.AuthenticateUser(this.loginform.value)
       .subscribe(
         res => {
-          //this.isAuthenticated=true
-          //this.uname.emit(this.loginform.get("username")?.value);
-          this._auth.sendmessage(this.loginform.get("username")?.value);
-          localStorage.setItem('token', res.token)
-          this._toastr.success("User Logged In Successfully");
+          this.regi=res;
+          console.log("-"+ this.regi[0].Id)       
+          this._auth.sendmessage(this.regi[0].Id);
+          localStorage.setItem('token','asas')
+          //res.Token
+          this.Success();
           this.router.navigate(['/dashboard'])
           this.isSubmitting = false;
-          console.log(res)
+        
         },
         err => {
-          this._toastr.error("LogIn failed");
+          this.error();
           console.log(err),
             this.isSubmitting = false;
         }
       )
-
   }
-
 }

@@ -8,41 +8,41 @@ import { AuthService } from './auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit { 
+export class AppComponent implements OnInit {
   title = 'bankmgmtsystem';
-  uname:string;
-  constructor(private _auth:AuthService,private router: Router){
-    
-console.log("entered constructor");
-
+  uname: string;
+  constructor(private _auth: AuthService, private router: Router) {   
   }
 
-  ngOnInit(){
-console.log("entered ngOnInit");
-this._auth.uname$.subscribe(
-  message=>{
-this.uname=message;
-  }
-);
+  ngOnInit() {
+    console.log("entered ngOnInit");
+    this._auth._RegId$.subscribe(
+      message => {
+        console.log(message);
+        this.uname = message;
+      }
+    );
   }
 
-  onRedirect()
-  {
-    this.router.navigate(['/registration',this.uname])
+  onProfileRedirect() {
+    this.router.navigate(['/registration', this.uname])
+  }
+
+  onLoanRedirect() {
+    this.router.navigate(['/loan', this.uname])
   }
 
   unameHandler(uname: string) {
-   
-    console.log("unameHandler"+uname);
+    console.log("unameHandler" + uname);
   }
 
-  loggedIn()
-  {
+  loggedIn() {
     return localStorage.getItem('token');
   }
 
-  onLogOut(){
-   
+  onLogOut() {
+    console.log("onLogOut");
+    this.router.navigate(['/login'])
     localStorage.clear();
   }
 

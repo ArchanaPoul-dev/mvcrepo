@@ -11,9 +11,10 @@ const routes: Routes = [
     {path:'',component:LoginComponent},
     {path:'login',component:LoginComponent},
     {path:'registration',component:RegistrationComponent},
-    {path:'registration/:name',component:RegistrationComponent},
+    {path:'registration/:uname',component:RegistrationComponent,
+    canActivate:[AuthGuard]},
     {
-      path:'loan',
+      path:'loan/:uname',
       component:LoanapplicationComponent,
       canActivate:[AuthGuard]
      },

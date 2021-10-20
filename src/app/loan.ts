@@ -1,6 +1,6 @@
 export interface Loan {
      Id  :number
-	 RegId   :number
+	 RegId   :string
 	 loantype  :string
 	 loanamt   :number
 	 loanapplydate  :Date

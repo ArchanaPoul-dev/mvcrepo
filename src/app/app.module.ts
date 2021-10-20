@@ -24,7 +24,8 @@ import { LoanapplicationComponent } from './loanapplication/loanapplication.comp
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
-import { ToasterService } from './toaster.service';
+// import { ToasterService } from './toaster.service';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -53,10 +54,15 @@ import { ToasterService } from './toaster.service';
     HttpClientModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatExpansionModule   
+    MatExpansionModule  ,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }), 
     
   ],
-  providers: [AuthService,AuthGuard,ToasterService],
+  providers: [AuthService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

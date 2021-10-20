@@ -6,20 +6,19 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { RegistrationComponent } from './registration/registration.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LoginpageComponent } from './loginpage/loginpage.component';
-import {MatSelectModule} from '@angular/material/select';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
 import { HttpClientModule } from '@angular/common/http';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { LoanapplicationComponent } from './loanapplication/loanapplication.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthService } from './auth.service';
@@ -32,16 +31,15 @@ import { ToastrModule } from 'ngx-toastr';
     AppComponent,
     LoginComponent,
     RegistrationComponent,
-    LoginpageComponent,
     LoanapplicationComponent,
     DashboardComponent,
- 
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FlexLayoutModule ,
+    FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -54,15 +52,15 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatExpansionModule  ,
+    MatExpansionModule,
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
-    }), 
-    
+    }),
+
   ],
-  providers: [AuthService,AuthGuard],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

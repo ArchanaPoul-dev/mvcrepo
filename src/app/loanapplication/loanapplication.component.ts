@@ -17,12 +17,12 @@ export class LoanapplicationComponent implements OnInit {
   showeduloandetails = false;
   showhomeloandetails = false;
   myDate = new Date();
- RegId:string;
- 
-  constructor(private fb: FormBuilder, private router: Router, 
-    private dt: DataService,private _auth: AuthService,private _toastr: ToastrService,
+  RegId: string;
+
+  constructor(private fb: FormBuilder, private router: Router,
+    private dt: DataService, private _auth: AuthService, private _toastr: ToastrService,
     private route: ActivatedRoute,) {
-    
+
   }
 
   Success() {
@@ -40,12 +40,12 @@ export class LoanapplicationComponent implements OnInit {
   ngOnInit(): void {
 
     this.loanform = this.fb.group({
-      RegId:[],
+      RegId: [],
       loantype: [null, [Validators.required]],
       loanamt: [null, Validators.required],
-      loanapplydate: [null, [Validators.required,this.dateRangeValidator]],
+      loanapplydate: [null, [Validators.required, this.dateRangeValidator]],
       loanissuedate: [null, Validators.required],
-      roi: [{value:null,disabled: true}, Validators.required],
+      roi: [{ value: null, disabled: true }, Validators.required],
       duration: [null, Validators.required],
       coursefees: [null],
       course: [null],
@@ -62,30 +62,31 @@ export class LoanapplicationComponent implements OnInit {
     })
     console.log(this.loanform);
     this.route.paramMap.subscribe(params => {
-      console.log("params Check"+  params.get('uname'));
+      console.log("params Check" + params.get('uname'));
       if (params.get('uname')) {
-        this.RegId=(params.get('uname').toString());
+        this.RegId = (params.get('uname').toString());
       }
     });
 
   }
-  onloansubmit() {   
-      console.log("Entered onloansubmit");
-      this.loanform.patchValue({
-        RegId: this.RegId  
-      });
-      console.log(this.loanform.value);
-      this._auth.ApplyLoan(this.loanform.value)
-        .subscribe(
-          res => {          
-            this.Success(); 
-            this.router.navigate(['/dashboard'])
-            console.log(res)
-          },
-          err => { 
-            this.error();
-            console.log(err) }
-        )
+  onloansubmit() {
+    console.log("Entered onloansubmit");
+    this.loanform.patchValue({
+      RegId: this.RegId
+    });
+    console.log(this.loanform.value);
+    this._auth.ApplyLoan(this.loanform.value)
+      .subscribe(
+        res => {
+          this.Success();
+          this.router.navigate(['/dashboard'])
+          console.log(res)
+        },
+        err => {
+          this.error();
+          console.log(err)
+        }
+      )
   }
   private dateRangeValidator: ValidatorFn = (): {
     [key: string]: any;
@@ -94,7 +95,7 @@ export class LoanapplicationComponent implements OnInit {
     const _loanapplydate = this.loanform && this.loanform.get("loanapplydate")?.value;
 
     invalid = (new Date(_loanapplydate).valueOf()) > new Date(this.myDate).valueOf();
-    console.log("Invalid Date : "+ invalid);
+    console.log("Invalid Date : " + invalid);
     return invalid ? { invalidRange: { _loanapplydate } } : null;
   };
 
@@ -108,13 +109,13 @@ export class LoanapplicationComponent implements OnInit {
       this.showhomeloandetails = false;
       this.loanform.controls["coursefees"].setValidators([Validators.required]);
       this.loanform.controls["course"].setValidators([Validators.required]);
-      this.loanform.controls["fathername"].setValidators([Validators.required,Validators.pattern("[a-zA-Z][a-zA-Z ]+[a-zA-Z]$")]);
+      this.loanform.controls["fathername"].setValidators([Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z ]+[a-zA-Z]$")]);
       this.loanform.controls["fatheroccupation"].setValidators([Validators.required]);
       this.loanform.controls["fatherexp"].setValidators([Validators.required]);
       this.loanform.controls["fexpcurrentcmpny"].setValidators([Validators.required]);
       this.loanform.controls["rationcardno"].setValidators([Validators.required]);
       this.loanform.patchValue({
-        roi: roival.Education         
+        roi: roival.Education
       });
 
     }
@@ -125,9 +126,9 @@ export class LoanapplicationComponent implements OnInit {
       this.loanform.controls["designation"].setValidators([Validators.required]);
       this.loanform.controls["totalexp"].setValidators([Validators.required]);
       this.loanform.controls["expwithcurcmpny"].setValidators([Validators.required]);
-     
+
       this.loanform.patchValue({
-        roi: roival.Home         
+        roi: roival.Home
       });
 
     }

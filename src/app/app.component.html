@@ -1,14 +1,12 @@
-<mat-toolbar color="primary"  *ngIf="loggedIn()" >
-  
-  
-  <img src="\assets\A.png" height="60" width="60" />
-  <a class="nav-item nav-link active" >Home <span class="sr-only">(current)</span></a>
+<mat-toolbar color="primary" >
+  <img src="\assets\loan.png" height="30" width="50" />
+  <a class="nav-item nav-link active">Home <span class="sr-only">(current)</span></a>
   <a class="nav-item nav-link" (click)="onLoanRedirect()">Loan Application</a>
-  <a class="nav-item nav-link" (click)="onProfileRedirect()" >Update Profile</a>
-  <span class="example-spacer"></span> 
-    <div> Welcome {{uname}} !!</div>   
-      <img src="\assets\userprofile.png" height="60" width="60" />
-    <a class="nav-item nav-link" (click)="onLogOut()" >Logout</a> 
+  <a class="nav-item nav-link" (click)="onProfileRedirect()">Update Profile</a>
+  <span class="example-spacer"></span>
+  <div> Welcome {{uname}} !!</div>
+  <img src="\assets\userprofile.png" height="60" width="60" />
+  <a class="nav-item nav-link" (click)="onLogOut()">Logout</a>
 </mat-toolbar>
 
 <!-- <nav class="navbar navbar-expand-lg " color="primary" *ngIf="loggedIn()">
@@ -19,10 +17,10 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-     
+
     </div>
   </div>
- 
+
 </nav> -->
 
 <div>

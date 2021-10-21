@@ -21,10 +21,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { LoanapplicationComponent } from './loanapplication/loanapplication.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AuthService } from './auth.service';
-import { AuthGuard } from './auth.guard';
+import { AuthService } from './Services/auth.service';
+import { AuthGuard } from './Services/auth.guard';
 // import { ToasterService } from './toaster.service';
 import { ToastrModule } from 'ngx-toastr';
+import { UpdateprofileComponent } from './updateprofile/updateprofile.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ToastrModule } from 'ngx-toastr';
     RegistrationComponent,
     LoanapplicationComponent,
     DashboardComponent,
+    UpdateprofileComponent,
 
   ],
   imports: [
@@ -54,7 +56,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatNativeDateModule,
     MatExpansionModule,
     ToastrModule.forRoot({
-      timeOut: 10000,
+      timeOut: 5000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),

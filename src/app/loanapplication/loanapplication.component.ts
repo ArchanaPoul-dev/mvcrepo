@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, ValidatorFn } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../Services/auth.service';
 
-import { DataService } from '../data.service';
-import { roival } from '../enum';
+import { DataService } from '../Services/data.service';
+import { roival } from '../Shared/enum';
 @Component({
   selector: 'app-loanapplication',
   templateUrl: './loanapplication.component.html',

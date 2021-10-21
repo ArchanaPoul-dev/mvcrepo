@@ -1,15 +1,18 @@
 .main-div mat-card {
   padding: 0px;
-  height: 400px;
+  height: 300px;
   max-width: 25% !important;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
+
 .card-title {
   height: 20px !important;
 }
-mat-toolbar {
+mat-toolbar
+ {
   font-size: 16px !important;
   height: 40px;
+  
 }
 
 .title-center {
@@ -26,6 +29,7 @@ input.ng-invalid.ng-touched {
 
 .main-div {
   height: 100vh !important;
+  /* background-color: gray; */
   background-image: url('/assets/bg.jpg');
 }
 

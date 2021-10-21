@@ -1,8 +1,8 @@
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
 
   <mat-card fxFlex=30>
-    <div class="ttlcenter">
-      <h1 class="title-center" style="padding: 20px;">Login</h1>
+    <div >    
+      <mat-toolbar color="primary"><h1 class="title-center" style="padding: 20px;">Login</h1>  </mat-toolbar>  
     </div>
     <form (ngSubmit)="onLogin()" name="loginform" [formGroup]="loginform" fxLayoutAlign="stretch" fxLayout="column" class="login-form">
       <mat-form-field>

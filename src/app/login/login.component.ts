@@ -2,9 +2,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { Registration } from '../registration';
+import { Registration } from '../Shared/registration';
 
 const dummyToken = '2340568t7eriog.jkvfm3456u4390guxcjklfjasdfkl.535636363';
 

@@ -1,5 +1,8 @@
 .main-div mat-card {
+  height: 100%;
   padding: 0px;
+  border-radius: 10px;
+  margin-top: 2%;
 }
 .card-title {
   height: 20px !important;
@@ -29,9 +32,7 @@ input.ng-invalid.ng-touched {
   width: 80%;
 }
 
-.main-div mat-card {
-  border-radius: 10px;
-}
+
 
 .card-header {
   background-color: white;
@@ -51,7 +52,7 @@ input.ng-invalid.ng-touched {
 }
 
 .main-div {
-  height: 100vh !important;
+  /* height: 100vh !important; */
 }
 
 .action-wrapper {

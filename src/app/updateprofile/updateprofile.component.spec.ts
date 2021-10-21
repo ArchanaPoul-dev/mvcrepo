@@ -14,11 +14,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastrModule } from 'ngx-toastr';
 
-import { RegistrationComponent } from './registration.component';
+import { UpdateprofileComponent } from './updateprofile.component';
 
-describe('RegistrationComponent', () => {
-  let component: RegistrationComponent;
-  let fixture: ComponentFixture<RegistrationComponent>;
+describe('UpdateprofileComponent', () => {
+  let component: UpdateprofileComponent;
+  let fixture: ComponentFixture<UpdateprofileComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -39,13 +39,13 @@ describe('RegistrationComponent', () => {
         MatToolbarModule ,
         BrowserAnimationsModule 
       ],
-      declarations: [ RegistrationComponent ]
+      declarations: [ UpdateprofileComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegistrationComponent);
+    fixture = TestBed.createComponent(UpdateprofileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -53,13 +53,4 @@ describe('RegistrationComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
-  // it("testing function", () => {
-  //   expect(component.error()).toContain('User Registration Failed ');
-  // });
-
-  // it("testing function", () => {
-  //   expect(component.onRegistration()).toContain('User Registration Failed ');
-  // });
-
 });

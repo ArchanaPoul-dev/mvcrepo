@@ -1,7 +1,7 @@
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
   <mat-card fxFlex=75>
-    <mat-toolbar color="primary">
-      <span>Loan Application</span>
+    <mat-toolbar color="primary">      
+      <h1 class="title-center" >Loan Application</h1>
     </mat-toolbar>
     <form (ngSubmit)="onloansubmit()" name="loanform" [formGroup]="loanform" fxLayoutAlign="stretch" fxLayout="column"
       class="loan-form">
@@ -116,7 +116,7 @@
             </div>
             <div class="col-md-4">
               <mat-form-field>
-                <input formControlName="fexpcurrentcmpny" matInput placeholder="Fathers Exp-Current Company">
+                <input formControlName="fexpcurrentcmpny" type="number" matInput placeholder="Fathers Exp-Current Company">
                 <mat-hint *ngIf="loanform.controls.fexpcurrentcmpny.errors && (loanform.controls.fexpcurrentcmpny.touched
                     ||loanform.controls.fexpcurrentcmpny.dirty  )">Enter valid fathers exp-current company</mat-hint>
 
@@ -143,7 +143,7 @@
               <mat-form-field>
                 <input formControlName="companyname" matInput placeholder="Company Name">
                 <mat-hint *ngIf="loanform.controls.companyname.errors && (loanform.controls.companyname.touched
-                    ||loanform.controls.companyname.dirty  )">Enter valid annual income</mat-hint>
+                    ||loanform.controls.companyname.dirty  )">Enter valid company name</mat-hint>
               </mat-form-field>
             </div>
             <div class="col-md-4" *ngIf="showhomeloandetails">
@@ -164,7 +164,7 @@
             </div>
             <div class="col-md-4">
               <mat-form-field>
-                <input formControlName="expwithcurcmpny" matInput placeholder="Experience-Current Company">
+                <input formControlName="expwithcurcmpny" type="number"  matInput placeholder="Experience-Current Company">
                 <mat-hint *ngIf="loanform.controls.expwithcurcmpny.errors && (loanform.controls.expwithcurcmpny.touched
                     ||loanform.controls.expwithcurcmpny.dirty)">Enter valid experience</mat-hint>
               </mat-form-field>
@@ -175,18 +175,13 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-4">
-
-        </div>
-
-        <div class="col-md-4">
-          <br>
-          <button mat-raised-button class="mr-4" [disabled]="!loanform.valid" type="submit"
+      <div class="action-wrapper">
+        <div class="actions">
+          <button mat-raised-button class="mr-3" color="secondary" (click)="onReset()">Reset</button>
+          <button mat-raised-button class="mr-3" [disabled]="!loanform.valid" type="submit"
             color="primary">Submit</button>
-          <button mat-raised-button color="primary" (click)="onReset()">Reset</button>
-        </div>
-        <div class="col-md-4"></div>
+          
+        </div>        
       </div>
 
 

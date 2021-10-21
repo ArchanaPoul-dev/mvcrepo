@@ -1,6 +1,9 @@
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
   <mat-card fxFlex=85>
-    <h1 class="title-center" style="padding-top: 20px;">Registration</h1>
+    <mat-toolbar color="primary">
+    <h1 class="title-center" >Registration</h1>
+    <!-- style="padding-top: 20px;" -->
+  </mat-toolbar>
     <form name="registrationform" [formGroup]="registrationform" fxLayoutAlign="stretch" fxLayout="column" class="registration-form">
 
       <h4 class="card-title" style=" height: 10% ;color: red;">* All fields are mandatory</h4>
@@ -195,7 +198,7 @@
             </div>
             <div class="col-md-4">
               <mat-form-field>
-                <input formControlName="InitialDepAmt" type="number" min="1" [readonly]="true" matInput placeholder="Initial Deposit Amount">
+                <input formControlName="InitialDepAmt" type="number" min="0" [readonly]="true" matInput placeholder="Initial Deposit Amount">
               </mat-form-field>
             </div>
             <div class="col-md-4">
@@ -209,7 +212,7 @@
             <div class="col-md-4">
               <mat-form-field appearance="fill">
                 <mat-label>ID Proof Type</mat-label>
-                <mat-select required formControlName="idprooftype" (change)="onSelectIDprooftype($event)">
+                <mat-select required formControlName="idprooftype" (selectionChange)="onSelectIDprooftype($event)">
                   <mat-option value="A">Adhar</mat-option>
                   <mat-option value="P">PAN</mat-option>
 
@@ -261,9 +264,10 @@
       </div>
       <div class="action-wrapper">
         <div class="actions">
-          <button mat-raised-button class="mr-5" color="secondary" (click)="onReset()">Reset</button>
-          <button mat-raised-button [disabled]="!registrationform.valid" (click)="onRegistration()" color="primary">Register</button>
-          <!-- <button mat-raised-button class="mr-4" [disabled]="!registrationform.valid" (click)="onUpdate()" color="primary">Update</button> -->
+          <button mat-raised-button class="mr-3" color="secondary" (click)="onBackToLogin()">Back To Login</button>
+          <button mat-raised-button class="mr-3" color="secondary" (click)="onReset()">Reset</button>
+          <button mat-raised-button class="mr-3" [disabled]="!registrationform.valid" (click)="onRegistration()" color="primary">Register</button>
+          
         </div>
       </div>
     </form>

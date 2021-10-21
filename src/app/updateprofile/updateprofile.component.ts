@@ -9,31 +9,26 @@ import { age, initialdeposit } from '../Shared/enum';
 import { Registration } from '../Shared/registration';
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  selector: 'app-updateprofile',
+  templateUrl: './updateprofile.component.html',
+  styleUrls: ['./updateprofile.component.css']
 })
-export class RegistrationComponent implements OnInit {
+export class UpdateprofileComponent implements OnInit {
   registrationform!: FormGroup;
   selectedcountry: any = { Id: 0, name: '' };
   countries: any[];
   states: any[];
   panelOpenState = false;
   selcountryid?: number;
-  editmode: boolean = false;
-
+  editmode:boolean=false;
   constructor(private fb: FormBuilder, private dt: DataService, private router: Router,
-    private _auth: AuthService, private route: ActivatedRoute, private _toastr: ToastrService) {
+    private _auth: AuthService, private route: ActivatedRoute,private _toastr: ToastrService) {
 
   }
 
-  Success(regid: string) {
-    this._toastr.success('User ' + regid + ' Registered Successfully ');
-  }
-  Success_update(message: string) {
+  Success_update(message:string) {
     this._toastr.success(message);
   }
-
   error() {
     this._toastr.error('User Registration Failed ');
   }
@@ -44,7 +39,7 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.registrationform = this.fb.group({
-      Id: [],
+      Id:[],
       name: [null, [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z ]+[a-zA-Z]$")]],
       username: [null, [Validators.required, Validators.maxLength(10)]],
       password: [null, [Validators.required, Validators.maxLength(10)]],
@@ -59,7 +54,7 @@ export class RegistrationComponent implements OnInit {
       maritalstatus: [null, Validators.required],
       contactno: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       dob: [null, [Validators.required, this.dateRangeValidator]],
-      RegDate: [formatDate(new Date(), "dd-MM-yyyy", "en")],
+      RegDate: [formatDate(new Date(), "dd-MM-yyyy", "en"), Validators.required],
       accounttype: [null, Validators.required],
       citizenstatus: [{ value: null }, Validators.required],
       InitialDepAmt: [{ value: null }],
@@ -74,7 +69,7 @@ export class RegistrationComponent implements OnInit {
     this.fillDropdowns();
 
     this.route.paramMap.subscribe(params => {
-      console.log("params Check" + params.get('uname'));
+      console.log("params Check"+  params.get('uname'));
       if (params.get('uname')) {
         this.editregister(params.get('uname').toString());
       }
@@ -86,17 +81,15 @@ export class RegistrationComponent implements OnInit {
     console.log("editregister" + uname);
     this._auth.getregisterUser(uname).subscribe(
       res => {
-
-        console.log("resresres" + res);
         this.editRegisterUser(res)
       },
       err => console.log(err)
     );
   }
   editRegisterUser(_reg: Registration) {
-    console.log("Actual editRegisterUser" + _reg.Name);
+    console.log("Actual editRegisterUser"+_reg.Name);
     console.log(_reg);
-    this.editmode = true;
+    this.editmode=true;
     //For State DDL fill
     this.dt.getallStates().subscribe(
       (data: any) => {
@@ -107,7 +100,7 @@ export class RegistrationComponent implements OnInit {
     //
     this.registrationform.patchValue(
       {
-        Id: _reg.Id,
+        Id:_reg.Id,
         name: _reg.Name,
         username: _reg.UserName,
         password: _reg.Password,
@@ -188,36 +181,13 @@ export class RegistrationComponent implements OnInit {
     return invalid ? { invalidRange: { dob } } : null;
   };
 
-  onRegistration() {
-    console.log("Entered onRegistration");
-    console.log(this.registrationform.value);
-    this._auth.registerUser(this.registrationform.value)
-      .subscribe(
-        res => {
-          //localStorage.setItem('token', 'res.token')
-          //res.token
-          this.Success(res);
-          console.log(res)
-          this.router.navigate(['/login'])
-
-        },
-        err => {
-          this.error();
-          console.log(err)
-        }
-      )
-
-  }
-
-
-
   onSelectIDprooftype(e: any) {
     console.log("Entered onSelectIDprooftype");
     let _idprooftype = this.registrationform.controls['idprooftype'].value;
     const _IDdocno = this.registrationform && this.registrationform.get("IDdocno")?.value;
     console.log(_idprooftype);
 
-    if (_idprooftype == 'P') {
+    if (_idprooftype == 'PAN') {
       this.registrationform.controls["IDdocno"].clearValidators();
       this.registrationform.controls["IDdocno"].setValidators([Validators.required, Validators.pattern("[A-Z]{5}[0-9]{4}[A-Z]{1}")]);
 
@@ -230,7 +200,7 @@ export class RegistrationComponent implements OnInit {
 
   onSelect(e: any) {
     console.log("Entered onselect");
-    let cntry = this.registrationform.controls['country'].value;
+    let cntry = this.registrationform.controls['country'].value;    
     this.dt.getallStates().subscribe(
       (data: any) => {
         console.log(data),
@@ -258,16 +228,11 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
-  onReset() {
+  onReset() {   
     this.registrationform.reset();
   }
 
-  onBackToLogin() {
-    this.router.navigate(['/login'])
-  }
-
-
-  onUpdate() {
+  onUpdate(){
     console.log("Entered onUpdate");
     console.log(this.registrationform.value);
     this._auth.updateregisterUser(this.registrationform.value)
@@ -275,16 +240,16 @@ export class RegistrationComponent implements OnInit {
         res => {
           //localStorage.setItem('token', 'res.token')
           //res.token
-          this.Success_update("Updated Successfully");
-          console.log(res)
+          this.Success_update("Profile Updated Successfully");
+          console.log(res)     
         },
-        err => {
+        err => { 
           this.error();
-          console.log(err)
-        }
+          console.log(err) }
       )
 
   }
 
 
 }
+

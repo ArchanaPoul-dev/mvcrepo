@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from './auth.service';
+import { AuthService } from './Services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'bankmgmtsystem';
+  title = 'Bank Management System';
   uname: string;
   constructor(private _auth: AuthService, private router: Router) {   
   }
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   }
 
   onProfileRedirect() {
-    this.router.navigate(['/registration', this.uname])
+    this.router.navigate(['/updateprofile', this.uname])
   }
 
   onLoanRedirect() {
@@ -36,6 +36,7 @@ export class AppComponent implements OnInit {
     console.log("unameHandler" + uname);
   }
 
+  //Need to remove 
   loggedIn() {
     return localStorage.getItem('token');
   }
